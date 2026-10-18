@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Music | Music E-Shoppe</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .music-item {
+            background: #172438;
+            border: 1px solid #62748e;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 18px 0;
+        }
+
+        .cover {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" style="max-width: 800px;">
+        <h1>Music E-Shoppe</h1>
+        <h2>My Music</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <p>
+            <a href="{{ url_for('music_catalogue') }}">Browse Catalogue</a>
+        </p>
+
+        {% if albums %}
+            {% for album in albums %}
+                <div class="music-item">
+                    {% if album.cover_image %}
+                        <img class="cover"
+                             src="{{ url_for('static', filename=album.cover_image) }}"
+                             alt="Album cover">
+                    {% endif %}
+
+                    <h3>{{ album.movie_name }}</h3>
+                    <p>{{ album.album_name }}</p>
+                    <p>Artist: {{ album.artist }}</p>
+                    <p>Year: {{ album.release_year }}</p>
+
+                    <audio controls preload="none">
+                        <source
+                            src="{{ url_for('play_album', album_id=album.album_id) }}"
+                            type="audio/mpeg">
+                        Your browser does not support audio playback.
+                    </audio>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You have not purchased any albums yet.</p>
+            <p>Browse the catalogue and click Buy Album to add music here.</p>
+        {% endif %}
+
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>

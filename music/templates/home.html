@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Music E-Shoppe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome to Music E-Shoppe!</h1>
+        <h2>Hello, {{ name }}!</h2>
+        <p>Your account is working correctly.</p>
+        <p>Explore albums and discover your favourite music.</p>
+        <p>
+            <a href="{{ url_for('music_catalogue') }}">Browse Music Catalogue</a>
+            
+        </p>
+        <p>
+            <a href="{{ url_for('my_music') }}">My Music</a>
+        </p>
+
+        <form method="POST" action="{{ url_for('logout') }}">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

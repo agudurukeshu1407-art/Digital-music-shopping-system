@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Music E-Shoppe</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Music E-Shoppe</h1>
+        <h2>Admin Dashboard</h2>
+
+        <p>Welcome, {{ username }}!</p>
+        <p>You are logged in as the administrator.</p>
+
+        <h3>Manage Your Music Store</h3>
+        <p>
+            <a href="{{ url_for('add_album') }}">Add a Music Album</a>
+        </p>
+
+        <p>Next, you will be able to add albums, upload music files,
+           and update album details.</p>
+           <p>
+            <a href="{{ url_for('manage_albums') }}">
+                Manage Albums
+            </a>
+        </p>
+
+        <form method="POST" action="{{ url_for('admin_logout') }}">
+            <button type="submit">Admin Logout</button>
+        </form>
+    </div>
+</body>
+</html>

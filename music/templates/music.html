@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Catalogue | Music E-Shoppe</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .album-card {
+            background: #172438;
+            border: 1px solid #62748e;
+            border-radius: 12px;
+            padding: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .album-card h3 {
+            color: #6ee7d8;
+        }
+
+        .album-card p {
+            text-align: left;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" style="max-width: 1000px;">
+        <h1>Music E-Shoppe</h1>
+        <h2>Music Catalogue</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <p>
+            <a href="{{ url_for('home') }}">Back to Home</a>
+        </p>
+
+        {% if albums %}
+            <div class="album-grid">
+                {% for album in albums %}
+                    <div class="album-card">
+                        {% if album.cover_image %}
+                            <img
+                                class="album-cover"
+                                src="{{ url_for('static', filename=album.cover_image) }}"
+                                alt="{{ album.album_name }} cover">
+                        {% endif %}
+
+                        <h3>{{ album.movie_name }}</h3>
+                        <p><strong>Album:</strong> {{ album.album_name }}</p>
+                        <p><strong>Artist:</strong> {{ album.artist }}</p>
+                        <p><strong>Year:</strong> {{ album.release_year }}</p>
+
+                        {% if album.description %}
+                            <p>{{ album.description }}</p>
+                        {% endif %}
+
+                        <p class="price">₹{{ "%.2f"|format(album.price) }}</p>
+                        <form method="POST"
+                        action="{{ url_for('buy_album', album_id=album.album_id) }}">
+                        <button type="submit">Buy Album</button>
+                    </form>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No albums are available yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

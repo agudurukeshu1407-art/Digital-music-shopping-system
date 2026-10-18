@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Music Album | Music E-Shoppe</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="card">
+        <h1>Music E-Shoppe</h1>
+        <h2>Add Music Album</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST"
+              action="{{ url_for('add_album') }}"
+              enctype="multipart/form-data">
+
+            <label>Movie Name</label>
+            <input type="text" name="movie_name"
+                   maxlength="150" required>
+
+            <label>Album Name</label>
+            <input type="text" name="album_name"
+                   maxlength="200" required>
+
+            <label>Artist / Music Director</label>
+            <input type="text" name="artist"
+                   maxlength="150" required>
+
+            <label>Release Year</label>
+            <input type="number" name="release_year"
+                   min="1800" max="2100" required>
+
+            <label>Description</label>
+            <textarea name="description" rows="3"></textarea>
+
+            <label>Price (₹)</label>
+            <input type="number" name="price"
+                   min="0" max="9999999.99"
+                   step="0.01" required>
+
+            <label>Cover Image (JPG, PNG, WEBP)</label>
+            <input type="file" name="cover_file"
+                   accept=".jpg,.jpeg,.png,.webp" required>
+
+            <label>Music File (MP3, WAV, OGG, M4A)</label>
+            <input type="file" name="music_file"
+                   accept=".mp3,.wav,.ogg,.m4a" required>
+
+            <button type="submit">Add Album</button>
+        </form>
+
+        <p>
+            <a href="{{ url_for('admin_dashboard') }}">
+                Back to Admin Dashboard
+            </a>
+        </p>
+    </div>
+</body>
+</html>

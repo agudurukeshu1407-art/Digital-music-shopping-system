@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Music E-Shoppe</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Music E-Shoppe</h1>
+        <h2>Admin Login</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('admin_login') }}">
+            <label>Admin Username</label>
+            <input type="text" name="username" required>
+
+            <label>Admin Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login as Admin</button>
+        </form>
+
+        <p><a href="{{ url_for('login') }}">Back to User Login</a></p>
+    </div>
+</body>
+</html>

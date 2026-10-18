@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Albums</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Manage Albums</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <p>
+            <a href="{{ url_for('admin_dashboard') }}">
+                Back to Dashboard
+            </a>
+        </p>
+
+        {% for album in albums %}
+            <div class="album-row">
+                <h3>{{ album.movie_name }}</h3>
+                <p>Song: {{ album.album_name }}</p>
+                <p>Artist: {{ album.artist }}</p>
+                <p>Price: ₹{{ album.price }}</p>
+
+                <form method="POST"
+                      action="{{ url_for('delete_album', album_id=album.album_id) }}"
+                      onsubmit="return confirm('Delete this album?');">
+                    <button type="submit">Delete Album</button>
+                </form>
+            </div>
+        {% else %}
+            <p>No albums found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
